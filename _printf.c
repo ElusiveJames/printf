@@ -3,7 +3,7 @@
 #include <string.h>
 #include "main.h"
 #include <unistd.h>
-#include "string_handler.h"
+
 /**
 * _printf - function that prints a formatted string
 * @format: format string
@@ -14,7 +14,7 @@ int _printf(const char *format, ...)
 {
 	char *f_str = NULL;
 	int f_int = 0;
-	char *p_str = NULL;
+	int f_len = 0;
 	char f_char;
 	char special;
 	
@@ -34,8 +34,9 @@ int _printf(const char *format, ...)
 			{
 				case 's':
 					f_str = va_arg(list, char *);
-					p_str = string_handler(f_str);
-					f_int += write(1, p_str, strlen(p_str));
+					f_len = strlen(f_str);
+					f_str[f_len] = '\0';
+					f_int += write(1, f_str, f_len);
 					format++;
 					break;
 				case 'c':
