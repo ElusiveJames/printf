@@ -3,6 +3,7 @@
 #include <string.h>
 #include "main.h"
 #include <unistd.h>
+
 /**
 * _printf - function that prints a formatted string
 * @format: format string
@@ -25,11 +26,6 @@ int _printf(const char *format, ...)
 
 	while  (*format != '\0')
 	{
-		if (*format != '%')
-		{			
-			f_int += write(1, format, 1);
-			format++;
-		}
 		if (*format == '%')
 		{
 			format++;
@@ -56,8 +52,11 @@ int _printf(const char *format, ...)
 			}
 
 		}
-		/*f_int += write(1, format, 1);
-		format++;*/
+		else
+		{
+			f_int += write(1, format, 1);
+			format++;
+		}
 	}
 	va_end(list);
 	return (f_int);
