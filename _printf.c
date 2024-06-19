@@ -14,7 +14,8 @@ int _printf(const char *format, ...)
 	char *f_str = NULL;
 	int f_int = 0;
 	char f_char;
-
+	char special;
+	
 	va_list list;
 
 	va_start(list, format);
@@ -24,6 +25,11 @@ int _printf(const char *format, ...)
 
 	while  (*format != '\0')
 	{
+		if (*format != '%')
+		{			
+			f_int += write(1, format, 1);
+			format++;
+		}
 		if (*format == '%')
 		{
 			format++;
@@ -39,15 +45,20 @@ int _printf(const char *format, ...)
 					f_int += write(1, &f_char, 1);
 					format++;
 					break;
+				case '%':
+					special = '%';
+					f_int += write(1, &special, 1);
+					format++;
+					break;
 				default:
-					f_int += write(1, format, 1);
+					format++;
 					break;
 			}
+
 		}
 		f_int += write(1, format, 1);
 		format++;
 	}
 	va_end(list);
 	return (f_int);
-
 }
