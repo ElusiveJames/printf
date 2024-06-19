@@ -3,7 +3,7 @@
 #include <string.h>
 #include "main.h"
 #include <unistd.h>
-
+#include "string_handler.h"
 /**
 * _printf - function that prints a formatted string
 * @format: format string
