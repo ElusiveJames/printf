@@ -34,8 +34,8 @@ int _printf(const char *format, ...)
 			{
 				case 's':
 					f_str = va_arg(list, char *);
-					f_len = strlen(f_str);
-					f_str[f_len] = '\0';
+					f_len = strlen(f_str) + 1;
+					f_str[f_len++] = '\0';
 					f_int += write(1, f_str, f_len);
 					format++;
 					break;
