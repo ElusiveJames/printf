@@ -38,6 +38,7 @@ int _printf(const char *format, ...)
 				case 's':
 					f_str = va_arg(list, char *);
 					f_int += write(1, f_str, strlen(f_str));
+					write(1, "\0",1);
 					format++;
 					break;
 				case 'c':
@@ -51,13 +52,12 @@ int _printf(const char *format, ...)
 					format++;
 					break;
 				default:
-					format++;
-					break;
+					return (-1);
 			}
 
 		}
-		f_int += write(1, format, 1);
-		format++;
+		/*f_int += write(1, format, 1);
+		format++;*/
 	}
 	va_end(list);
 	return (f_int);
