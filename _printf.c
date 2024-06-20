@@ -21,7 +21,7 @@ int _printf(const char *format, ...)
 			format++;
 			if (*format == '\0')
 				break;
-			else if (*format == 'c')
+			if (*format == 'c')
 				f_int += _putchar(va_arg(args, int));
 			else if (*format == 's')
 			{
