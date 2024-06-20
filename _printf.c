@@ -22,7 +22,7 @@ int _printf(const char *format, ...)
 			if (*format == 'c')
 				f_int += _putchar(va_arg(args, int));
 			else if (*format == NULL)
-				return (-1);
+				conntinue;
 			else if (*format == 's')
 				f_int += write(1, va_arg(args, char *), strlen(va_arg(args, char *)));
 			else if (*format == '%')
