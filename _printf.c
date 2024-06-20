@@ -19,7 +19,9 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			if (*format == 'c')
+			if (*format == '\0')
+				break;
+			else if (*format == 'c')
 				f_int += _putchar(va_arg(args, int));
 			else if (*format == 's')
 			{
