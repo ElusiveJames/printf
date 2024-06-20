@@ -38,9 +38,13 @@ int _printf(const char *format, ...)
 			format++;
 		}
 		else if (*format == '%' && *(format + 1) == '\0')
+		{
 			return (-1);
-		f_int += _putchar(*format);
-		format++;
+		}
+		else
+		{
+			f_int += _putchar(*format);
+			format++;
 		}
 	}
 	va_end(args);
