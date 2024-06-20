@@ -1,65 +1,44 @@
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
 #include "main.h"
-#include <unistd.h>
-
 /**
-* _printf - function that prints a formatted string
-* @format: format string
-* Return: number of characters printed
+* _printf - Entry point
+* @format: format
+* Return: number of character printed
 */
-
 int _printf(const char *format, ...)
 {
-	char *f_str = NULL;
 	int f_int = 0;
-	int f_len = 0;
-	char f_char;
-	char special;
-	
-	va_list list;
+	va_list args;
 
-	va_start(list, format);
+	va_start(args, format);
 
 	if (format == NULL)
 		return (-1);
-
-	while  (*format != '\0')
+	while (*format)
 	{
 		if (*format == '%')
 		{
 			format++;
-			switch (*format)
+
+			if (*format == 'c')
+				f_int += _putchar(va_arg(args, int));
+			else if (*format == 's')
+				f_int += write(1, va_arg(args, char *), strlen(va_arg(args, char *)));
+			else if (*format == '%')
+				f_int += _putchar('%');
+			else
 			{
-				case 's':
-					f_str = va_arg(list, char *);
-					f_len = strlen(f_str) + 1;
-					f_str[f_len] = '\0';
-					f_int += write(1, f_str, f_len - 1);
-					format++;
-					break;
-				case 'c':
-					f_char = va_arg(list, int);
-					f_int += write(1, &f_char, 1);
-					format++;
-					break;
-				case '%':
-					special = '%';
-					f_int += write(1, &special, 1);
-					format++;
-					break;
-				default:
-					return (-1);
+				f_int += _putchar('%');
+				f_int += _putchar(*format);
 			}
+			format++;
 
 		}
 		else
 		{
-			f_int += write(1, format, 1);
+			f_int += _putchar(*format);
 			format++;
 		}
 	}
-	va_end(list);
+	va_end(args);
 	return (f_int);
 }
