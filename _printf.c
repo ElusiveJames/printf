@@ -16,11 +16,9 @@ int _printf(const char *format, ...)
 		return (-1);
 	while (*format)
 	{
-		if (*format == '%')
+		if (*format == '%'&& *(format + 1) != '\0')
 		{
 			format++;
-			if (*format == '\0')
-				break;
 			if (*format == 'c')
 				f_int += _putchar(va_arg(args, int));
 			else if (*format == 's')
