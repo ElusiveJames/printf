@@ -6,6 +6,7 @@
 */
 int _printf(const char *format, ...)
 {
+	char *f_str = NULL;
 	int f_int = 0;
 	va_list args;
 
@@ -18,11 +19,15 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-
 			if (*format == 'c')
 				f_int += _putchar(va_arg(args, int));
 			else if (*format == 's')
-				f_int += write(1, va_arg(args, char *), strlen(va_arg(args, char *)));
+			{
+				f_str = va_arg(args, char *);
+				if (f_str == NULL)
+					f_str = "(null)";
+				f_int += write(1, f_str, strlen(f_str));
+			}
 			else if (*format == '%')
 				f_int += _putchar('%');
 			else
@@ -31,7 +36,6 @@ int _printf(const char *format, ...)
 				f_int += _putchar(*format);
 			}
 			format++;
-
 		}
 		else
 		{
