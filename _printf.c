@@ -9,6 +9,8 @@ int _printf(const char *format, ...)
 	char *f_str = NULL;
 	int f_int = 0;
 	va_list args;
+	int number;
+	char buffer[100] = {0};
 
 	va_start(args, format);
 	if (format == NULL)
@@ -22,6 +24,17 @@ int _printf(const char *format, ...)
 			format++;
 			if (*format == 'c')
 				f_int += _putchar(va_arg(args, int));
+			else if (*format == 'd' || *format == 'i')
+			{
+				number = va_arg(args, int);
+				if (number != 0)
+				{
+					snprintf(buffer, 100, "%d", number);
+					f_int += write(1, buffer, strlen(buffer));
+				}
+				else
+					f_int += write(1, "(null)", strlen("(null)"));
+			}
 			else if (*format == 's')
 			{
 				f_str = va_arg(args, char *);
