@@ -34,7 +34,7 @@ int _printf(const char *format, ...)
 					f_int += write(1, buffer, strlen(buffer));
 				}
 				else
-					f_int += _write(1, "0", 1);
+					f_int += write(1, "0", 1);
 			}
 			else if (*format == 's')
 			{
